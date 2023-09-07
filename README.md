@@ -20,6 +20,18 @@ git clone https://github.com/Thessal/autoarxiv
 
 cd autoarxiv
 
+docker compose up
+
+# docker compose down
+```
+
+Or, do it manually
+
+```
+git clone https://github.com/Thessal/autoarxiv
+
+cd autoarxiv
+
 docker network create auto-arxiv-app
 
 docker run -d \

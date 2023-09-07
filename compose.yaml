@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  nougat:
+    image: registry.hf.space/ysharma-nougat:latest
+    platform: linux/amd64
+    hostname: nougat 
+    command: python app.py 
+    ports:
+      - 7860:7860
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:7860 || exit 1
+      interval: 10s
+      timeout: 1s
+      retries: 100
+      start_period: 10s
+
+  app:
+    image: jongkook90/autoarxiv:0
+    ports: 
+      - 0.0.0.0:3000:3000 
+    depends_on: 
+      nougat:
+        condition: service_healthy
+    #volumes:
+    #  - ./:/app
