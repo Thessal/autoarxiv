@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AutoArXiv</title>
+</head>
+<body>
+    <h1>Automatic arXiv monitor</h1>
+    <form method="POST">
+        <label for="query">arXiv query : </label>
+        <input type="text" id="query" name="query" value="{{ query }}" style="width:100%;"><br><br>
+        <label for="apikey"> OpenAI api key (sk-...): </label>
+	<input type="text" id="apikey" name="apikey" value="{{ apikey }}"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if data %}
+    <h2>Summary:</h2>
+    <div style="white-space: pre-wrap;">{{ data }}</div>
+    {% endif %}
+</body>
+</html>
+
