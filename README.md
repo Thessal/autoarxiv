@@ -1,15 +1,21 @@
 # Automatic Arxiv summarizer
 
-* Arxiv api
-* Nougat
-* ChatGPT
+Requires CUDA (for nougat ocr) and ChatGPT API key to run
+
+## Demo
+![demo](demo.png?raw=true "Demo")
 
 
-# Usage
+Todo : 
+
+* DB
+* RSS
+
+## Usage
 
 Requires cuda 12
 
-'''
+```
 git clone https://github.com/Thessal/autoarxiv
 
 cd autoarxiv
@@ -25,7 +31,5 @@ docker run -d \
 docker build -t getting-started .
 
 docker run --network auto-arxiv-app -p 0.0.0.0:3000:3000 getting-started
-'''
+```
 
-# Example
-![demo](demo.png?raw=true "Demo")
