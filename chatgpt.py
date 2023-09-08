@@ -18,7 +18,9 @@ def summarize(text_to_summarize, api_key):
         # model="gpt-3.5-turbo",
         model="gpt-3.5-turbo-16k",
         messages=[ 
-            {"role": "user", "content": f"Summarize this research article into one sentence: {text[0]}"},
+            #{"role": "user", "content": f"Summarize this research article into one sentence: {text[0]}"},
+            #{"role": "user", "content": f"We are trying to summarize key findings and references from a research paper. Please read following article carefully. : \n[start of article]\n {text[0]}\n[end of article]\nInstruction:\nSummarize this research article into one sentence. And then, make a list of key findings and important references."},
+            {"role": "user", "content": f"We are trying to summarize key findings, and references from a research paper. Please read following article carefully. Mathematical formulae are presented in LaTeX format. : \n[start of article]\n {text[0]}\n[end of article]\nInstruction:\nSummarize this research article into one sentence. And then, make a list of key findings, LaTeX formulae and important references."},
         ],
     )
     summary = response["choices"][0]["message"]["content"] 
