@@ -13,13 +13,18 @@ services:
       timeout: 1s
       retries: 100
       start_period: 10s
+    volumes:
+      - ./nougat/input:/home/user/app/input
+      - ./nougat/output:/home/user/app/output
 
   app:
-    image: jongkook90/autoarxiv:0
+    # image: jongkook90/autoarxiv:0
+    image: jongkook90/autoarxiv:1
     ports: 
       - 0.0.0.0:3000:3000 
     depends_on: 
       nougat:
         condition: service_healthy
-    #volumes:
-    #  - ./:/app
+    volumes:
+      - ./nougat:/app/nougat
+      - ./db:/app/db

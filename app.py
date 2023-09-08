@@ -16,6 +16,9 @@ import json
 import nougat
 import chatgpt
 import arxiv
+import random
+import glob 
+import os 
 
 app = Flask(__name__, template_folder='template')
 
@@ -47,8 +50,20 @@ def index():
             print("nougat running")
             data = nougat.get_text(pdf_url)
             print("nougat finished")
+
+            # hash_str = "%32x"%random.getrandbits(128)
+            latest_file = max(glob.glob('/app/nougat/input/*.pdf'), key=os.path.getctime)
+            print(latest_file)
+            hash_str = os.path.basename(latest_file)
+            with open('/app/db/'+hash_str+'.json', 'w', encoding='utf-8') as f:
+                json.dump(arxiv_item, f, ensure_ascii=False, indent=4)
+            with open('/app/db/'+hash_str+'.md', 'w', encoding='utf-8') as f:
+                f.write(data)
+
             print("chatgpt running")
             data = chatgpt.summarize(data, apikey)
+            with open('/app/db/'+hash_str+'_chatgpt_summary.txt', 'w', encoding='utf-8') as f:
+                f.write(data)
             print("chatgpt finished")
             data = header + '\n\n' + data
         else:
