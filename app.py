@@ -54,7 +54,8 @@ def index():
             # hash_str = "%32x"%random.getrandbits(128)
             latest_file = max(glob.glob('/app/nougat/input/*.pdf'), key=os.path.getctime)
             print(latest_file)
-            hash_str = os.path.basename(latest_file)
+            # hash_str = os.path.basename(latest_file)
+            hash_str = pdf_url.split("/")[-1]
             with open('/app/db/'+hash_str+'.json', 'w', encoding='utf-8') as f:
                 json.dump(arxiv_item, f, ensure_ascii=False, indent=4)
             with open('/app/db/'+hash_str+'.md', 'w', encoding='utf-8') as f:

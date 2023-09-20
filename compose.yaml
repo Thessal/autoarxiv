@@ -19,7 +19,7 @@ services:
 
   app:
     # image: jongkook90/autoarxiv:0
-    image: jongkook90/autoarxiv:3
+    image: jongkook90/autoarxiv:4
     ports: 
       - 0.0.0.0:3000:3000 
     depends_on: 
