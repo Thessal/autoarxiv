@@ -1,8 +1,6 @@
 import openai
 
-def split_text(text):
-    # token_count = 2000 
-    token_count = 6000 
+def split_text(text, token_count=6000):
     # https://platform.openai.com/tokenizer
     # This translates to roughly ¾ of a word (so 100 tokens ~= 75 words) 
     texts = text.split()
@@ -10,10 +8,16 @@ def split_text(text):
     return output 
 
 def summarize(text_to_summarize, api_key):
+    try:
+        text = split_text(text_to_summarize)
+        return _summarize(text_to_summarize, api_key)
+    except openai.error.InvalidRequestError as e:
+        print(f"OpenAI API returned an API Error: {e}, reducing text length")
+        text = split_text(text_to_summarize, token_count=3000)
+        return _summarize(text_to_summarize, api_key)
+
+def _summarize(text, api_key):
     openai.api_key = api_key
-    
-    text = split_text(text_to_summarize)
-    
     response = openai.ChatCompletion.create(
         # model="gpt-3.5-turbo",
         model="gpt-3.5-turbo-16k",
